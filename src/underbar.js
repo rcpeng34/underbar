@@ -105,6 +105,20 @@ var _ = { };
 
   // Produce a duplicate-free version of the array.
   _.uniq = function(array) {
+    var uniqs = [];
+    for (var i = 0; i < array.length; i++) {
+      var matched = false;
+      for (var uniqCounter = 0; uniqCounter < uniqs.length; uniqCounter++) {
+        if (array[i] === uniqs[uniqCounter]) {
+          matched = true;
+          break;
+        };
+      };
+      if (matched === false) {
+        uniqs.push(array[i]);
+      };
+    };
+    return uniqs;
   };
 
 
