@@ -88,6 +88,19 @@ var _ = { };
   _.reject = function(collection, test) {
     // TIP: see if you can re-use _.filter() here, without simply
     // copying code in and modifying it
+    var trues = _.filter(collection, test);
+    var fails = [];
+    //  for each element in collection, either push to fails, or increment truth counter
+    var trueCounter = 0;
+    for (var i = 0; i < collection.length; i++) {
+      // check to see if it is true else push to fails
+      if (trueCounter < trues.length && collection[i] === trues[trueCounter]) {
+        trueCounter++;
+      } else {
+        fails.push(collection[i]);
+      };
+    };
+    return fails;
   };
 
   // Produce a duplicate-free version of the array.
