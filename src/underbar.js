@@ -46,8 +46,8 @@ var _ = { };
       };
   // else it's a generic object
     } else {
-      for (var i in collection) {
-        iterator(collection.i, i, collection);
+      for (var prop in collection) {
+        iterator(collection[prop], prop, collection);
       };
     };
 
@@ -72,6 +72,16 @@ var _ = { };
 
   // Return all elements of an array that pass a truth test.
   _.filter = function(collection, test) {
+    // create an array to push all elements that pass
+    var resultArray = [];
+    for (var i = 0; i < collection.length; i++) {
+      // only pass elements that pass the test to resultArray
+      // assuming test is a function that returns a bool
+      if (test(collection[i])) {
+        resultArray.push(collection[i]);
+      };
+    };
+    return resultArray;
   };
 
   // Return all elements of an array that don't pass a truth test.
