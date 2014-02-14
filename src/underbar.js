@@ -249,6 +249,16 @@ var _ = { };
   // provided, provide a default one
   _.some = function(collection, iterator) {
     // TIP: There's a very clever way to re-use every() here.
+    // providing a default iterator
+    if (iterator === undefined) {
+      iterator = function (runsum, item) {
+        return (runsum && item);
+      };
+    };
+    console.log("beginning a return test");
+    console.log(collection);
+    console.log("finished printing collection");
+    return !(_.every(collection, iterator));
   };
 
 
