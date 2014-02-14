@@ -226,6 +226,23 @@ var _ = { };
   // Determine whether all of the elements match a truth test.
   _.every = function(collection, iterator) {
     // TIP: Try re-using reduce() here.
+  // if iterator is undefined, compare items in collection
+    if (iterator === undefined) {
+      var ifIteratorFunc = function (runsum, item) {
+        return (runsum && item);
+      };
+      return _.reduce(collection, ifIteratorFunc, true);
+    } else {
+    // define the iterator function to use in reduct
+        var elseIteratorFunc = function (runsum, item) {
+          if (runsum === false) {
+            return false;
+          } else {
+            return (runsum && Boolean(iterator(item)));
+          };
+        };
+        return _.reduce(collection, elseIteratorFunc, true);
+      };
   };
 
   // Determine whether any of the elements pass a truth test. If no iterator is
