@@ -164,14 +164,17 @@ var _ = { };
   // Calls the method named by methodName on each value in the list.
   // Note: you will nead to learn a bit about .apply to complete this.
   _.invoke = function(collection, functionOrKey, args) {
-    console.log(functionOrKey);
-    console.log(collection);
-    console.log(args);
     // create an array to hold the results
     var results = [];
-    for (var i = 0; i < collection.length; i++) {
-      results.push(functionOrKey.apply(collection[i],args));
-      console.log("tried once");
+    // determine if functionOrKey is a function, else it is a method
+    if (typeof(functionOrKey) === "function") {
+      for (var i = 0; i < collection.length; i++) {
+        results.push(functionOrKey.apply(collection[i],args));
+      };
+    } else {
+      for (var i =0; i < collection.length; i++) {
+        results.push(collection[i][functionOrKey](args));
+      };
     };
     return results;
   };
@@ -190,6 +193,10 @@ var _ = { };
   //     return total + number;
   //   }, 0); // should be 6
   _.reduce = function(collection, iterator, accumulator) {
+    for (var i = 0; i < collection.length; i++) {
+      accumulator = iterator(accumulator, collection[i]);
+    };
+    return accumulator;
   };
 
   // Determine if the array or object contains a given value (using `===`).
