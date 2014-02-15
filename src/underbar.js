@@ -249,16 +249,21 @@ var _ = { };
   // provided, provide a default one
   _.some = function(collection, iterator) {
     // TIP: There's a very clever way to re-use every() here.
-    // providing a default iterator
+    // providing a default iterator and default result for empty set
+
     if (iterator === undefined) {
       iterator = function (runsum, item) {
-        return (runsum && item);
+        return (runsum || Boolean(item));
       };
     };
-    console.log("beginning a return test");
-    console.log(collection);
-    console.log("finished printing collection");
-    return !(_.every(collection, iterator));
+
+    // check to see if any are true, as soon as one is found end
+    for (var i = 0; i < collection.length; i++) {
+      if (Boolean(iterator(collection[i])) === true) {
+        return true;
+      };
+    };
+    return false;
   };
 
 
