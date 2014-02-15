@@ -286,6 +286,15 @@ var _ = { };
   //     bla: "even more stuff"
   //   }); // obj1 now contains key1, key2, key3 and bla
   _.extend = function(obj) {
+    // define the target object
+    var target = arguments[0];
+    // start overwriting properties
+    for ( var i = 1; i < arguments.length; i ++) {
+      for (var key in arguments[i]) {
+        target[key] = arguments[i][key];
+      };
+    };
+    return target;
   };
 
   // Like extend, but doesn't ever overwrite a key that already
