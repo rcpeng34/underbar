@@ -300,6 +300,33 @@ var _ = { };
   // Like extend, but doesn't ever overwrite a key that already
   // exists in obj
   _.defaults = function(obj) {
+    /*
+    // extend using 2nd object as target, then overwrite with 1st
+    var target = arguments[1];
+    var goal = arguments[0];
+    // create new arguments for first extend
+    var extend1 = [];
+    for (var i = 1; i < arguments.length; i++) {
+      extend1.push(arguments[i]);
+    };
+
+    target = _.extend.apply(this, extend1);
+    console.log(target);
+    var result = _.extend(target, goal);
+    console.log(result);
+    return result;
+    */
+    // invert the list of arguments and pass to extend
+
+
+    var inverse = []
+    // first argument is left alone and not in inverse
+    for (var i = arguments.length -1; i > -1; i--) {
+      inverse.push(arguments[i]);
+    };
+    var second = _.extend.apply(this, inverse);
+    var first = arguments[0];
+    return second;
   };
 
 
@@ -341,6 +368,7 @@ var _ = { };
   // already computed the result for the given argument and return that value
   // instead if possible.
   _.memoize = function(func) {
+
   };
 
   // Delays a function for the given number of milliseconds, and then calls
@@ -350,6 +378,14 @@ var _ = { };
   // parameter. For example _.delay(someFunction, 500, 'a', 'b') will
   // call someFunction('a', 'b') after 500ms
   _.delay = function(func, wait) {
+    // create arguments for func
+    var args = [];
+    for (var i = 2; i < arguments.length; i++) {
+      args.push(arguments[i]);
+    };
+    console.log(args);
+    console.log(wait);
+    setTimeout(func.apply(this, args), wait);
   };
 
 
