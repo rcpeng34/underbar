@@ -321,12 +321,26 @@ var _ = { };
 
     var inverse = []
     // first argument is left alone and not in inverse
-    for (var i = arguments.length -1; i > -1; i--) {
+    for (var i = arguments.length -1; i > 0; i--) {
       inverse.push(arguments[i]);
     };
     var second = _.extend.apply(this, inverse);
-    var first = arguments[0];
-    return second;
+    //var first = arguments[0];
+    //return _.extend(second, first);
+    // since above is not technically the first argument
+    // compare all props in second with first and add new
+    for (var key in second) {
+      var match = false;
+      for (var prop in arguments[0]) {
+        if (key === prop) {
+          match = true;
+        };
+      };
+      if (!match) {
+        arguments[0][key] = second[key];
+      };
+    };
+    return arguments[0];
   };
 
 
