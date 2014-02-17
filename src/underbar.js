@@ -383,8 +383,6 @@ var _ = { };
     for (var i = 2; i < arguments.length; i++) {
       args.push(arguments[i]);
     };
-    console.log(args);
-    console.log(wait);
     setTimeout(func.apply(this, args), wait);
   };
 
@@ -400,6 +398,13 @@ var _ = { };
   // input array. For a tip on how to make a copy of an array, see:
   // http://mdn.io/Array.prototype.slice
   _.shuffle = function(array) {
+    var shuffle = array.slice(0); 
+    for (var i = 0; i < shuffle.length; i ++) {
+      var holder = shuffle.pop();
+      var index = Math.floor(Math.random()*array.length);
+      shuffle.splice(index, 0, holder);
+    };
+    return shuffle;
   };
 
 
