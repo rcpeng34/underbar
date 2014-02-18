@@ -382,7 +382,21 @@ var _ = { };
   // already computed the result for the given argument and return that value
   // instead if possible.
   _.memoize = function(func) {
-
+    // store previously called results as keys in an object
+    var resultlist = new Object ();
+    return function() {
+      // first see if the argument has called before
+      for (var key in resultlist) {
+        // compare each key in resultlist to arguments
+        // if matching, return from resultlist
+        if (key === arguments[0]) {
+          return resultlist[key];
+        };
+      };
+      // reaching here means no match, add match and return
+      resultlist[arguments[0]] = func(arguments[0]);
+      return func(arguments[0]);
+    };
   };
 
   // Delays a function for the given number of milliseconds, and then calls
